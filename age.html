@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বয়স ক্যালকুলেটর</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px;
+        background-color: #2D3430}
+        input, button { padding: 10px; margin: 10px; }
+        
+    </style>
+</head>
+<body>
+
+    <h2>বয়স ক্যালকুলেটর</h2>
+    <label for="birthdate">আপনার জন্মতারিখ এবং সময় দিন:</label>
+    <input type="datetime-local" id="birthdate">
+    <button onclick="calculateAge()">বয়স গণনা করুন</button>
+    <h3 id="result"></h3>
+
+    <script>
+        function calculateAge() {
+            let birthdate = document.getElementById("birthdate").value;
+            if (!birthdate) {
+                document.getElementById("resআমার মো বাইল কো ড ইডিটরে একটি বয়স ক্ যালকুলেটর বানানো আছে।
+আমি এই ক্ যালকুলেটরটি কিভাবে গিটহাবে রাখবো ?ult").innerText = "অনুগ্রহ করে জন্মতারিখ এবং সময় নির্বাচন করুন!";
+                return;
+            }
+            
+            let birthDateObj = new Date(birthdate);
+            let now = new Date();
+
+            let birthYear = birthDateObj.getFullYear();
+            let birthMonth = birthDateObj.getMonth();
+            let birthDay = birthDateObj.getDate();
+            let birthHour = birthDateObj.getHours();
+            let birthMinute = birthDateObj.getMinutes();
+            let birthSecond = birthDateObj.getSeconds();
+
+            let currentYear = now.getFullYear();
+            let currentMonth = now.getMonth();
+            let currentDay = now.getDate();
+            let currentHour = now.getHours();
+            let currentMinute = now.getMinutes();
+            let currentSecond = now.getSeconds();
+
+            let ageYears = currentYear - birthYear;
+            let ageMonths = currentMonth - birthMonth;
+            let ageDays = currentDay - birthDay;
+            let ageHours = currentHour - birthHour;
+            let ageMinutes = currentMinute - birthMinute;
+            let ageSeconds = currentSecond - birthSecond;
+
+            // মাসের পার্থক্য নেগেটিভ হলে এক বছর কমিয়ে দিন
+            if (ageMonths < 0) {
+                ageYears--;
+                ageMonths += 12;
+            }
+
+            // দিনের পার্থক্য নেগেটিভ হলে আগের মাস থেকে দিন ধার করুন
+            if (ageDays < 0) {
+                let prevMonth = new Date(currentYear, currentMonth, 0);
+                ageDays += prevMonth.getDate();
+                ageMonths--;
+            }
+
+            // ঘন্টার পার্থক্য নেগেটিভ হলে এক দিন কমিয়ে দিন
+            if (ageHours < 0) {
+                ageDays--;
+                ageHours += 24;
+            }
+
+            // মিনিটের পার্থক্য নেগেটিভ হলে এক ঘন্টা কমিয়ে দিন
+            if (ageMinutes < 0) {
+                ageHours--;
+                ageMinutes += 60;
+            }
+
+            // সেকেন্ডের পার্থক্য নেগেটিভ হলে এক মিনিট কমিয়ে দিন
+            if (ageSeconds < 0) {
+                ageMinutes--;
+                ageSeconds += 60;
+            }
+
+            document.getElementById("result").innerText = 
+                `আপনার বর্তমান বয়স ${ageYears} বছর, ${ageMonths} মাস, ${ageDays} দিন, ${ageHours} ঘন্টা, ${ageMinutes} মিনিট, ${ageSeconds} সেকেন্ড`;
+        }
+    </script>
+
+</body>
+</html>
